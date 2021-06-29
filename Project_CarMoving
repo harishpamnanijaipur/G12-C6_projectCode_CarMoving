@@ -1,0 +1,58 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jun 29 10:38:58 2021
+
+@author: dell
+"""
+
+import pygame,sys
+
+pygame.init()
+
+display_width = 450
+display_height = 400
+
+mycar = pygame.display.set_mode((display_width,display_height))
+pygame.display.set_caption('Car Moving')
+
+
+white = (255,255,255)
+
+clock = pygame.time.Clock()
+crashed = True
+carImg = pygame.image.load('car.png')
+
+
+x =  (display_width * 0.45)
+
+y = (display_height * 0.8)
+print(y)
+state_change = 0
+car_speed = 0
+
+while  crashed:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            crashed = False
+
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                state_change = -5
+            elif event.key == pygame.K_RIGHT:
+                state_change = 5
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                state_change = 0
+        
+    
+    x += state_change
+           
+    mycar.fill(white)
+    mycar.blit(carImg, (x,y))
+    
+        
+    pygame.display.update()
+    clock.tick(60)
+
+pygame.quit()
